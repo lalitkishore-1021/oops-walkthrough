@@ -18,6 +18,8 @@
             --glass-border: rgba(255, 255, 255, 0.1);
             --shadow: rgba(0,0,0,0.5);
             --splash-bg: #050505;
+            --danger: #ff4444;
+            --success: #00cc66;
         }
 
         body.light-mode {
@@ -109,59 +111,112 @@
         /* --- PROJECT CARD & CUSTOM COVER STYLING --- */
         .project-card { 
             cursor: pointer; 
-            width: 100%; /* 🔥 FIX: Forces all cards to be the exact same width 🔥 */
+            width: 100%; 
             max-width: 400px; 
             margin: 0 auto; 
-            box-sizing: border-box; /* Protects width from padding */
+            box-sizing: border-box; 
         }
         
-        .project-card .caption { 
-            font-size: 1.2rem; 
-            color: var(--primary); 
-        }
+        .project-card .caption { font-size: 1.2rem; color: var(--primary); }
 
         .project-cover {
-            width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, rgba(255, 170, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid var(--glass-border);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-            transition: all 0.4s ease;
-            margin-bottom: 15px;
+            width: 100%; height: 250px; background: linear-gradient(135deg, rgba(255, 170, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+            border-radius: 12px; display: flex; justify-content: center; align-items: center;
+            border: 1px solid var(--glass-border); box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            transition: all 0.4s ease; margin-bottom: 15px;
         }
 
         .project-icon {
-            width: 80px;
-            height: 80px;
-            stroke: var(--primary);
-            filter: drop-shadow(0 0 10px rgba(255, 170, 0, 0.4));
+            width: 80px; height: 80px; stroke: var(--primary); filter: drop-shadow(0 0 10px rgba(255, 170, 0, 0.4));
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .project-card:hover .project-cover {
-            background: linear-gradient(135deg, rgba(255, 170, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%);
-        }
-        .project-card:hover .project-icon {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 20px rgba(255, 170, 0, 0.8));
-        }
+        .project-card:hover .project-cover { background: linear-gradient(135deg, rgba(255, 170, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%); }
+        .project-card:hover .project-icon { transform: scale(1.2); filter: drop-shadow(0 0 20px rgba(255, 170, 0, 0.8)); }
+
+        /* --- NEW VIEWS ROUTING --- */
+        .app-view { display: none; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .app-view.active { display: block; }
+        .view-header { text-align: center; margin-bottom: 40px; }
 
         /* --- GALLERY VIEW STYLING --- */
-        #gallery-view { display: none; }
         .back-btn {
             background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-main);
             padding: 10px 25px; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-weight: bold;
-            cursor: pointer; margin-bottom: 40px; transition: all 0.3s ease; font-size: 1rem;
+            cursor: pointer; margin-bottom: 40px; transition: all 0.3s ease; font-size: 1rem; display: inline-block;
         }
         .back-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateX(-5px); }
-        .gallery-title { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: var(--text-main); margin-bottom: 40px; text-transform: uppercase;}
+        .gallery-title { font-family: 'Montserrat', sans-serif; font-size: 2rem; color: var(--text-main); margin-bottom: 10px; text-transform: uppercase;}
 
         .fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- NEW TOOLS STYLING --- */
+        .form-row { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 15px; margin-bottom: 15px; align-items: center; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;} }
+        
+        input, select {
+            background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: var(--text-main);
+            padding: 12px; border-radius: 8px; font-family: 'Open Sans', sans-serif; width: 100%; box-sizing: border-box; outline: none; transition: border-color 0.3s;
+        }
+        body.light-mode input, body.light-mode select { background: rgba(255,255,255,0.8); }
+        input:focus, select:focus { border-color: var(--primary); }
+        select option { background: var(--bg-end); color: var(--text-main); }
+        
+        .action-btn {
+            background: var(--primary); border: none; color: #000; padding: 12px 20px; border-radius: 8px;
+            font-weight: bold; cursor: pointer; transition: all 0.3s; width: 100%; text-transform: uppercase;
+        }
+        .action-btn:hover { background: #ffcc00; transform: translateY(-2px); }
+        .danger-btn { background: var(--danger); color: white; padding: 12px; border-radius: 8px; cursor: pointer; border: none; font-weight: bold; }
+        
+        .result-box { background: var(--glass); border: 1px solid var(--primary); padding: 20px; border-radius: 12px; text-align: center; margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        
+        /* Mess Menu Beautiful Styling */
+        .tab-container { display: flex; overflow-x: auto; gap: 10px; margin-bottom: 30px; padding-bottom: 10px; }
+        .tab-container::-webkit-scrollbar { display: none; } 
+        
+        .tab-btn { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text-main); padding: 12px 25px; border-radius: 30px; cursor: pointer; white-space: nowrap; transition: 0.3s; font-weight: bold; font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.85rem;}
+        .tab-btn.active, .tab-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 170, 0, 0.4);}
+        
+        .meal-card { 
+            display: flex; gap: 20px; background: var(--glass); padding: 25px; border-radius: 16px; 
+            border: 1px solid var(--glass-border); margin-bottom: 20px; transition: transform 0.3s, border-color 0.3s;
+            align-items: flex-start;
+        }
+        .meal-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        
+        .meal-icon-box {
+            background: linear-gradient(135deg, rgba(255, 170, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%);
+            border: 1px solid var(--primary); padding: 15px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center; color: var(--primary);
+            flex-shrink: 0; box-shadow: inset 0 0 10px rgba(255,170,0,0.1);
+        }
+        .meal-icon-box svg { width: 28px; height: 28px; stroke-width: 2; }
+        
+        .meal-content { flex-grow: 1; }
+        .meal-content h3 { margin: 0 0 10px 0; color: var(--text-main); font-size: 1.4rem; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        .meal-content p { margin: 0; color: var(--text-sub); line-height: 1.8; font-size: 1.05rem; }
+        
+        .special-badge {
+            display: inline-block; background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;
+            margin-top: 10px; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
+            text-transform: uppercase; font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Helper Accordion */
+        details { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 8px; margin-bottom: 10px; }
+        summary { padding: 15px; cursor: pointer; font-weight: bold; color: var(--primary); list-style: none; outline: none; }
+        summary::-webkit-details-marker { display: none; }
+        .details-content { padding: 15px; border-top: 1px solid var(--glass-border); color: var(--text-sub); }
+        .details-content ul { margin: 0; padding-left: 20px; }
+        .details-content li { margin-bottom: 8px; }
+
+        /* Attendance Stats */
+        .stat-text { color: var(--text-sub); font-size: 0.9rem; margin-top: 5px; }
+        .good-attendance { color: var(--success); }
+        .bad-attendance { color: var(--danger); }
 
         /* --- VIEW COUNTER & FOOTER --- */
         .footer { margin-top: 80px; padding: 40px 20px; border-top: 1px solid var(--glass-border); display: flex; flex-direction: column; align-items: center; gap: 20px; transition: border-color 0.5s ease;}
@@ -203,8 +258,9 @@
             <p class="subtitle">All Java source code is available on my GitHub. Click the GitHub logo above to access and copy</p>
         </header>
 
-        <div id="projects-view">
+        <div id="projects-view" class="app-view active">
             <div class="gallery-container">
+                
                 <div class="image-card project-card" onclick="openProject('oopsBanner')">
                     <div class="project-cover">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
@@ -217,13 +273,138 @@
                     </div>
                     <div class="caption">OOPS Banner App</div>
                 </div>
+
+                <div class="image-card project-card" onclick="switchView('cgpa-view')">
+                    <div class="project-cover">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
+                            <rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect>
+                            <line x1="8" y1="6" x2="16" y2="6"></line>
+                            <line x1="16" y1="14" x2="16" y2="14.01"></line>
+                            <line x1="12" y1="14" x2="12" y2="14.01"></line>
+                            <line x1="8" y1="14" x2="8" y2="14.01"></line>
+                            <line x1="16" y1="18" x2="16" y2="18.01"></line>
+                            <line x1="12" y1="18" x2="12" y2="18.01"></line>
+                            <line x1="8" y1="18" x2="8" y2="18.01"></line>
+                        </svg>
+                    </div>
+                    <div class="caption">CGPA Calculator</div>
+                </div>
+
+                <div class="image-card project-card" onclick="switchView('mess-view'); renderMessMenu('Monday');">
+                    <div class="project-cover">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
+                            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
+                            <path d="M7 2v20"></path>
+                            <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path>
+                        </svg>
+                    </div>
+                    <div class="caption">Mess Menu</div>
+                </div>
+
+                <div class="image-card project-card" onclick="switchView('helper-view')">
+                    <div class="project-cover">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
+                            <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                        </svg>
+                    </div>
+                    <div class="caption">Study Helper</div>
+                </div>
+
+                <div class="image-card project-card" onclick="switchView('attendance-view'); renderAttendance();">
+                    <div class="project-cover">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                            <path d="m9 16 2 2 4-4"></path>
+                        </svg>
+                    </div>
+                    <div class="caption">Attendance Tracker</div>
+                </div>
+
             </div>
         </div>
 
-        <div id="gallery-view">
-            <button class="back-btn" onclick="closeProject()">&#8592; Back to Projects</button>
-            <h2 class="gallery-title" id="dynamic-project-title">Project Name</h2>
+        <div id="gallery-view" class="app-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="switchView('projects-view')">&#8592; Back to Home</button>
+                <h2 class="gallery-title" id="dynamic-project-title">Project Name</h2>
+            </div>
             <div class="gallery-container" id="dynamic-gallery"></div>
+        </div>
+
+        <div id="cgpa-view" class="app-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="switchView('projects-view')">&#8592; Back to Home</button>
+                <h2 class="gallery-title">CGPA Calculator</h2>
+            </div>
+            <div class="image-card" style="max-width: 800px; margin: 0 auto; cursor: default; transform: none;">
+                <div id="cgpa-rows">
+                    <div class="form-row">
+                        <input type="text" placeholder="Subject Name (Optional)">
+                        <select class="cgpa-grade">
+                            <option value="">Grade</option>
+                            <option value="10">O</option><option value="9">A+</option><option value="8">A</option>
+                            <option value="7">B+</option><option value="6">B</option><option value="5">C</option>
+                        </select>
+                        <input type="number" class="cgpa-credit" placeholder="Credits" min="1" max="10">
+                        <button class="danger-btn" onclick="this.parentElement.remove()">X</button>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="action-btn" style="background: var(--glass); color: var(--primary);" onclick="addCgpaRow()">+ Add Subject</button>
+                    <button class="action-btn" onclick="calculateCGPA()">Calculate CGPA</button>
+                </div>
+                <div id="cgpa-result" class="result-box" style="display: none;"></div>
+            </div>
+        </div>
+
+        <div id="mess-view" class="app-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="switchView('projects-view')">&#8592; Back to Home</button>
+                <h2 class="gallery-title">Mess Menu</h2>
+                <p class="subtitle" style="margin-bottom: 20px;">SRMIST Hostel Mess Menu</p>
+            </div>
+            <div class="tab-container" id="mess-tabs">
+                </div>
+            <div id="mess-content" style="max-width: 800px; margin: 0 auto;">
+                </div>
+        </div>
+
+        <div id="helper-view" class="app-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="switchView('projects-view')">&#8592; Back to Home</button>
+                <h2 class="gallery-title">Study Helper</h2>
+            </div>
+            <div class="gallery-container" id="helper-semesters">
+                </div>
+            <div id="helper-subjects" style="display: none; max-width: 800px; margin: 0 auto;">
+                <button class="back-btn" onclick="document.getElementById('helper-subjects').style.display='none'; document.getElementById('helper-semesters').style.display='grid';">&#8592; Back to Semesters</button>
+                <h3 style="color: var(--primary); text-align: center; margin-bottom: 20px;" id="helper-sem-title"></h3>
+                <div id="helper-subject-list"></div>
+            </div>
+        </div>
+
+        <div id="attendance-view" class="app-view">
+            <div class="view-header">
+                <button class="back-btn" onclick="switchView('projects-view')">&#8592; Back to Home</button>
+                <h2 class="gallery-title">Attendance Tracker</h2>
+                <p class="subtitle">Target: 75% | Data saves automatically to this device</p>
+            </div>
+            <div class="image-card" style="max-width: 800px; margin: 0 auto; cursor: default; transform: none;">
+                <div class="form-row">
+                    <input type="text" id="att-sub-name" placeholder="Subject Name">
+                    <input type="number" id="att-attended" placeholder="Attended" min="0">
+                    <input type="number" id="att-total" placeholder="Total" min="1">
+                    <button class="action-btn" onclick="addAttendance()">Add</button>
+                </div>
+                
+                <div id="overall-attendance" class="result-box" style="margin-bottom: 20px;">Overall: 0%</div>
+                
+                <div id="attendance-list">
+                    </div>
+            </div>
         </div>
 
         <footer class="footer">
@@ -244,20 +425,31 @@
     </div>
 
     <script>
-        // --- PORTFOLIO DATA (Now with Dual Sub-Folders) ---
+        // ==========================================
+        // 1. ROUTING LOGIC (SPA)
+        // ==========================================
+        function switchView(viewId) {
+            document.querySelectorAll('.app-view').forEach(view => {
+                view.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // 2. PORTFOLIO DATA (Your original data)
+        // ==========================================
         const projectsDatabase = {
             'oopsBanner': {
                 title: 'OOPS Banner App',
-                // This array creates TWO folder cards INSIDE the OOPS gallery
                 subProjects: [
                     { id: 'ucsFolder', title: "UC's" },
                     { id: 'week1Problem', title: 'Week 1 Problem' }
                 ]
-                // Images have been moved into their own folders below!
             },
             'ucsFolder': {
                 title: "UC's",
-                parent: 'oopsBanner', // Takes the user back to the OOPS Banner view
+                parent: 'oopsBanner',
                 images: [
                     { src: 'images/oops-banner/uc1.png', label: '1' },
                     { src: 'images/oops-banner/uc2.png', label: '2' },
@@ -274,7 +466,7 @@
             },
             'week1Problem': { 
                 title: 'Week 1 and week 2 Problems',
-                parent: 'oopsBanner', // Takes the user back to the OOPS Banner view
+                parent: 'oopsBanner', 
                 images: [
                     { src: 'images/oops-banner/Basic-step1.png', label: 'Basic-Step' },
                     { src: 'images/oops-banner/Basic-step2.png', label: 'Basic-Step' },
@@ -289,15 +481,14 @@
             }
         };
 
-        // --- VIEW SWITCHING LOGIC ---
         function openProject(projectId) {
+            switchView('gallery-view');
             const projectData = projectsDatabase[projectId];
             document.getElementById('dynamic-project-title').innerText = projectData.title;
             
             const galleryElement = document.getElementById('dynamic-gallery');
             galleryElement.innerHTML = ''; 
             
-            // 1. Render Sub-folders (if they exist)
             if (projectData.subProjects) {
                 projectData.subProjects.forEach(sub => {
                     const folderHTML = `
@@ -314,7 +505,6 @@
                 });
             }
 
-            // 2. Render standard Images
             if (projectData.images) {
                 projectData.images.forEach(imgData => {
                     const cardHTML = `
@@ -327,28 +517,294 @@
                 });
             }
 
-            // 3. Dynamic Back Button Logic
-            const backBtn = document.querySelector('.back-btn');
+            const backBtn = document.querySelector('#gallery-view .back-btn');
             if (projectData.parent) {
                 backBtn.onclick = () => openProject(projectData.parent);
                 backBtn.innerHTML = '&#8592; Back to ' + projectsDatabase[projectData.parent].title;
             } else {
-                backBtn.onclick = closeProject;
-                backBtn.innerHTML = '&#8592; Back to Projects';
+                backBtn.onclick = () => switchView('projects-view');
+                backBtn.innerHTML = '&#8592; Back to Home';
+            }
+        }
+
+        // ==========================================
+        // 3. CGPA CALCULATOR LOGIC
+        // ==========================================
+        function addCgpaRow() {
+            const rowHTML = `
+                <div class="form-row fade-in-up">
+                    <input type="text" placeholder="Subject Name (Optional)">
+                    <select class="cgpa-grade">
+                        <option value="">Grade</option>
+                        <option value="10">O</option><option value="9">A+</option><option value="8">A</option>
+                        <option value="7">B+</option><option value="6">B</option><option value="5">C</option>
+                    </select>
+                    <input type="number" class="cgpa-credit" placeholder="Credits" min="1" max="10">
+                    <button class="danger-btn" onclick="this.parentElement.remove()">X</button>
+                </div>
+            `;
+            document.getElementById('cgpa-rows').insertAdjacentHTML('beforeend', rowHTML);
+        }
+
+        function calculateCGPA() {
+            const grades = document.querySelectorAll('.cgpa-grade');
+            const credits = document.querySelectorAll('.cgpa-credit');
+            let totalPoints = 0;
+            let totalCredits = 0;
+
+            for(let i = 0; i < grades.length; i++) {
+                let gradeVal = parseFloat(grades[i].value);
+                let creditVal = parseFloat(credits[i].value);
+                
+                if(!isNaN(gradeVal) && !isNaN(creditVal)) {
+                    totalPoints += (gradeVal * creditVal);
+                    totalCredits += creditVal;
+                }
             }
 
-            document.getElementById('projects-view').style.display = 'none';
-            document.getElementById('gallery-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            const resultBox = document.getElementById('cgpa-result');
+            resultBox.style.display = 'block';
+            if (totalCredits === 0) {
+                resultBox.innerText = "Please enter valid grades and credits!";
+            } else {
+                const cgpa = (totalPoints / totalCredits).toFixed(2);
+                resultBox.innerText = `Your CGPA: ${cgpa}`;
+            }
         }
 
-        function closeProject() {
-            document.getElementById('gallery-view').style.display = 'none';
-            document.getElementById('projects-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // ==========================================
+        // 4. BEAUTIFUL MESS MENU LOGIC
+        // ==========================================
+        const mealIcons = {
+            'Breakfast': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>',
+            'Lunch': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+            'Snacks': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M2 21c1.2-1.5 3-2 4-2 1.9 0 2.8.5 4 2 1.2-1.5 3-2 4-2 1.9 0 2.8.5 4 2"/><path d="M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v4a7 7 0 0 1-7 7h-4a7 7 0 0 1-7-7z"/></svg>',
+            'Dinner': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>'
+        };
+
+        const messMenuData = {
+            'Monday': { 
+                Breakfast: 'Bread, Butter, Jam, Ghee Pongal, Sambar, Coconut Chutney, Vadai, Tea/Coffee/Milk / Boiled Egg (1 Piece), Poori, Potato Masala, Herbal Kanji', 
+                Lunch: 'Payasam, Ghee Chappathi, Green Peas Masala, Variety Rice, Steamed Rice, Sambar, Dal Lasooni, Tomato Rasam, Gobi-65 OR Bitter Guard-65, Raw Banana Chops, Millet Kanji, Special Fryums, Butter Milk, Pickle', 
+                Snacks: 'Pav Bajji, Tea/Coffee', 
+                Dinner: 'Malabar Paratha, Mix Veg Kuruma, Millet Dosa, Idly Podi, Oil, Special Chutney, Steamed Rice, Chilli Sambar, Jeera Dal, Rasam, Aloo Capsicum, Pickle, Fryums, Veg-Salad, Banana, Millet Kanji, *** Dry Fish Gravy ***' 
+            },
+            'Tuesday': { 
+                Breakfast: 'Bread, Butter, Jam, Idly, Veg Kosthu, Spl Chutney, Poha, Mint Chutney, Tea/Coffee/Milk, Herbal Kanji, Masala Omlet (1 Piece)', 
+                Lunch: 'Millet Sweet, Luchi, Kashmiri Dum Aloo, Jeera Pulao, Steamed Rice, Masala Sambar, Bagara Dal, Mix Veg Usili, Pepper Rasam, Lauki Subji, Pickle, Millet Kanji, Butter Milk, Fryums', 
+                Snacks: 'Boiled Peanut / Black Channa Sundal, Tea/Coffee', 
+                Dinner: 'Chappathi, Aloo Chenna Khurma, Fried Rice / Noodles / Pastha, Manchurian Gravy / Crispy Vegetable, Steamed Rice, Rasam, Dal Fry, Millet Kanji, Pickle, Fryums, Veg-Salad, Milk, Spl Fruits, *** Chicken Gravy ***' 
+            },
+            'Wednesday': { 
+                Breakfast: 'Bread, Butter, Jam, Millet Dosa, Idly Podi, Oil, Arachivitta Sambar, Chutney, Butter Chappathi, Aloo Rajma Masala, Herbal Kanji, Tea/Coffee/Milk', 
+                Lunch: 'Chappathi, Soya Kasa, Suitani Pulao, Steamed Rice, Mysore Dal Fry, Kadi Pakoda, Garlic Rasam, Aloo Palak (or) Aloo Paruval, Yam Mochai Roast, Pickle, Fryums, Millet Kanji, Butter Milk', 
+                Snacks: 'Veg Puff / Sweet Bun, Tea/Coffee', 
+                Dinner: 'Chappathi, Steamed Rice, Dal Tadka, Chicken Masala / Chilli Chicken (Non-Veg) / Paneer Butter Masala, Rasam, Pickle, Millet Kanji, Fryums, Veg Salad, Milk, Banana, *** Chicken Gravy ***' 
+            },
+            'Thursday': { 
+                Breakfast: 'Bread, Butter, Jam, Chappathi, Dal Masala, Veg Semiya Kichadi, Coconut Chutney, Boiled Egg (1 Piece), Banana, Herbal Kanji, Tea/Coffee/Milk', 
+                Lunch: 'Poori, Aloo Mutar Ghughni, Corn Pulao, Punjabi Dal Tadka, Kadai Vegetable, Steamed Rice, Drumstick Brinjal Sambar, Pineapple Rasam, Beetroot Poriyal, Pickle, Fryums, Millet Kanji, Butter Milk', 
+                Snacks: 'Pani Poori (or) Mixture, Tea/Coffee', 
+                Dinner: 'Ghee Pulao / Kaji Pulao (Basmati Rice), Chappathi, Rajma Paneer, Steamed Rice, Chole Dal Fry, Rasam, Aloo Peanut Masala, Fryums, Pickle, Veg Salad, Milk, Ice Cream, *** Chicken Gravy ***' 
+            },
+            'Friday': { 
+                Breakfast: 'Bread, Butter, Jam, Onion Podi Uthappam, Idly Podi, Oil, Chilli Sambar, Kara Chutney, Ghee Chappathi, Muttar Masala, Tea/Coffee/Milk, Boiled Egg (1 Piece), Herbal Kanji', 
+                Lunch: 'Spl Dry Jamun / Bread Halwa, Veg Briyani, Mix Raitha, Bisebelabath, Curd Rice, Steamed Rice, Tomato Rasam, Aloo Gobi Adaraki, Moongdal Tadka, Millet Kanji, Pickle, Potato Chips', 
+                Snacks: 'Bonda / Sambar Vada, Chutney, Tea/Coffee', 
+                Dinner: 'Chole Bhatura, Steamed Rice, Tomato Dal, Veg Upma, Coconut Chutney, Rasam, Cabbage Thoran, Pickle, Fryums, Veg Soup, Banana, Veg Salad, Milk, *** Mutton Gravy ***' 
+            },
+            'Saturday': { 
+                Breakfast: 'Bread, Butter, Jam, Chappathi, Aloo Meal Maker Kasa, Idiyappam (Lemon or Masala or Coconut Milk), Coconut Chutney, Tea/Coffee/Milk, Boiled Egg (1 Piece), Herbal Kanji', 
+                Lunch: 'Butter Roti, Aloo Double Beans Masala, Veg Pulao, Steamed Rice, Dal Makhni, Bhindi Do Pyasa, Parupu Urundai Kuzhambu, Kootu, Jeera Rasam, Pickle, Special Fryums, Millet Kanji, Butter Milk', 
+                Snacks: 'Cake (or) Browni, Tea/Coffee', 
+                Dinner: 'Sweet, Panjabi Paratha, Rajma Makan Wala, French Fry, Steamed Rice, Mysore Dal Fry, Veg Idly, Idly Podi, Oil, Chutney, Tiffen Sambar, Rasam, Pickle, Fryums, Veg Salad, Milk, Millet Kanji, Special Fruit, *** Fish Gravy ***' 
+            },
+            'Sunday': { 
+                Breakfast: 'Bread, Butter, Jam, Chole Poori, Veg Upma, Coconut Chutney, Tea/Coffee/Milk, Herbal Kanji', 
+                Lunch: 'Chappathi, Chicken (Pepper / Kadai), Paneer Butter Masala (or) Kadai Paneer, Dal Dhadka, Mint Pulao, Steamed Rice, Garlic Rasam, Poriyal, Pickle, Fryums, Butter Milk, Millet Kanji, *** Chicken Gravy ***', 
+                Snacks: 'Corn / Bajji, Chutney (OR) Juice, Tea/Coffee', 
+                Dinner: 'Variety Stuffing Paratha, Curd, Steamed Rice, Hara Moong Dal Tadka, Kathamba Sambar, Poriyal, Rasam, Pickle, Fryums, Veg Salad, Milk, Ice Cream, Millet Kanji, *** Chicken Gravy ***' 
+            }
+        };
+
+        function renderMessMenu(selectedDay) {
+            const days = Object.keys(messMenuData);
+            const tabContainer = document.getElementById('mess-tabs');
+            const contentContainer = document.getElementById('mess-content');
+            
+            tabContainer.innerHTML = '';
+            contentContainer.innerHTML = '';
+
+            days.forEach(day => {
+                const btn = document.createElement('button');
+                btn.className = `tab-btn ${day === selectedDay ? 'active' : ''}`;
+                btn.innerText = day;
+                btn.onclick = () => renderMessMenu(day);
+                tabContainer.appendChild(btn);
+            });
+
+            const meals = messMenuData[selectedDay];
+            Object.entries(meals).forEach(([time, items]) => {
+                let formattedText = items.split(', ').join(' <span style="color: var(--primary); font-weight: bold; padding: 0 5px;">&bull;</span> ');
+                formattedText = formattedText.replace(/\*\*\*(.*?)\*\*\*/g, '<br><span class="special-badge">🔥 $1 🔥</span>');
+
+                contentContainer.innerHTML += `
+                    <div class="meal-card fade-in-up" style="display: flex; gap: 20px; align-items: flex-start;">
+                        <div class="meal-icon-box">
+                            ${mealIcons[time]}
+                        </div>
+                        <div class="meal-content">
+                            <h3>${time}</h3>
+                            <p>${formattedText}</p>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        // --- THEME TOGGLE LOGIC ---
+        // ==========================================
+        // 5. HELPER (RESOURCES) LOGIC
+        // ==========================================
+        const dummySubject = { name: 'Content Adding Soon...', topics: ['Check back later for updates, PYQs, and CT Papers.'], pyqLink: '#', ctLink: '#' };
+        
+        const helperData = {
+            'Semester 1': [dummySubject],
+            'Semester 2': [dummySubject],
+            'Semester 3': [dummySubject],
+            'Semester 4': [dummySubject],
+            'Semester 5': [dummySubject],
+            'Semester 6': [dummySubject],
+            'Semester 7': [dummySubject],
+            'Semester 8': [dummySubject]
+        };
+
+        function initHelper() {
+            const semContainer = document.getElementById('helper-semesters');
+            for(let i=1; i<=8; i++) {
+                const semName = `Semester ${i}`;
+                semContainer.innerHTML += `
+                    <div class="image-card project-card fade-in-up" onclick="showHelperSubjects('${semName}')">
+                        <div class="project-cover" style="height: 150px;">
+                            <h2 style="color: var(--primary); margin:0;">SEM ${i}</h2>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showHelperSubjects(semName) {
+            document.getElementById('helper-semesters').style.display = 'none';
+            document.getElementById('helper-subjects').style.display = 'block';
+            document.getElementById('helper-sem-title').innerText = semName;
+            
+            const listContainer = document.getElementById('helper-subject-list');
+            listContainer.innerHTML = '';
+
+            const subjects = helperData[semName] || [];
+            
+            subjects.forEach(sub => {
+                let topicsHTML = sub.topics.map(t => `<li>${t}</li>`).join('');
+                listContainer.innerHTML += `
+                    <details class="fade-in-up">
+                        <summary>${sub.name} &#9662;</summary>
+                        <div class="details-content">
+                            <strong>Important Topics:</strong>
+                            <ul style="margin-top: 10px; margin-bottom: 15px;">${topicsHTML}</ul>
+                            <a href="${sub.ctLink}" style="color:var(--primary); text-decoration: none; font-weight: bold;">[ Download CT Papers ]</a> &nbsp;|&nbsp; 
+                            <a href="${sub.pyqLink}" style="color:var(--primary); text-decoration: none; font-weight: bold;">[ Download PYQs ]</a>
+                        </div>
+                    </details>
+                `;
+            });
+        }
+        initHelper(); 
+
+        // ==========================================
+        // 6. ATTENDANCE TRACKER LOGIC
+        // ==========================================
+        let attendanceData = JSON.parse(localStorage.getItem('squadAttendance')) || [];
+
+        function saveAttendance() {
+            localStorage.setItem('squadAttendance', JSON.stringify(attendanceData));
+        }
+
+        function addAttendance() {
+            const nameInput = document.getElementById('att-sub-name');
+            const attInput = document.getElementById('att-attended');
+            const totInput = document.getElementById('att-total');
+            
+            if(!nameInput.value || !attInput.value || !totInput.value) return alert("Fill all fields");
+            
+            attendanceData.push({
+                id: Date.now(),
+                name: nameInput.value,
+                attended: parseInt(attInput.value),
+                total: parseInt(totInput.value)
+            });
+            
+            nameInput.value = ''; attInput.value = ''; totInput.value = '';
+            saveAttendance();
+            renderAttendance();
+        }
+
+        function deleteAttendance(id) {
+            attendanceData = attendanceData.filter(item => item.id !== id);
+            saveAttendance();
+            renderAttendance();
+        }
+
+        function renderAttendance() {
+            const list = document.getElementById('attendance-list');
+            list.innerHTML = '';
+            
+            let grandAttended = 0;
+            let grandTotal = 0;
+
+            attendanceData.forEach(item => {
+                grandAttended += item.attended;
+                grandTotal += item.total;
+                
+                const percentage = item.total === 0 ? 0 : ((item.attended / item.total) * 100).toFixed(1);
+                const isGood = percentage >= 75;
+                
+                let statusText = "";
+                if(isGood) {
+                    let bunk = Math.floor((item.attended - (0.75 * item.total)) / 0.75);
+                    statusText = `You can safely bunk ${bunk} classes.`;
+                } else {
+                    let needed = Math.ceil(((0.75 * item.total) - item.attended) / 0.25);
+                    statusText = `Attend ${needed} more classes to hit 75%.`;
+                }
+
+                list.innerHTML += `
+                    <div class="meal-card fade-in-up" style="display: flex; justify-content: space-between; align-items: center; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <div>
+                            <h3 style="margin-bottom: 5px; color: var(--primary); font-family: 'Montserrat', sans-serif; text-transform: uppercase;">${item.name}</h3>
+                            <div style="font-size: 1.5rem; font-weight: bold;" class="${isGood ? 'good-attendance' : 'bad-attendance'}">
+                                ${percentage}%
+                            </div>
+                            <div class="stat-text">${item.attended} / ${item.total} Attended</div>
+                            <div class="stat-text" style="color:var(--text-main); font-weight: bold; margin-top: 8px;">${statusText}</div>
+                        </div>
+                        <button class="danger-btn" onclick="deleteAttendance(${item.id})">Del</button>
+                    </div>
+                `;
+            });
+
+            const overallEl = document.getElementById('overall-attendance');
+            if(grandTotal === 0) {
+                overallEl.innerText = "Overall: 0%";
+                overallEl.style.color = "var(--primary)";
+            } else {
+                const overallPerc = ((grandAttended / grandTotal) * 100).toFixed(1);
+                overallEl.innerText = `Overall: ${overallPerc}%`;
+                overallEl.style.color = overallPerc >= 75 ? "var(--success)" : "var(--danger)";
+            }
+        }
+
+        // ==========================================
+        // UI & UTILITY LOGIC
+        // ==========================================
         function toggleTheme() {
             const body = document.body;
             const btn = document.getElementById('themeToggle');
@@ -356,7 +812,6 @@
             btn.innerText = body.classList.contains('light-mode') ? '🌙' : '☀️'; 
         }
 
-        // --- BULLETPROOF SPLASH SCREEN LOGIC (FORCED TIMER FOR ONLINE COMPILERS) ---
         setTimeout(() => {
             document.getElementById('splash-screen').classList.add('zoom-out');
             document.getElementById('main-content').classList.add('content-visible');
@@ -367,7 +822,6 @@
             }, 1000);
         }, 1200);
 
-        // --- LIGHTBOX LOGIC ---
         function openLightbox(src) {
             const lb = document.getElementById("lightbox");
             lb.style.display = "flex";
@@ -379,4 +833,3 @@
     </script>
 </body>
 </html>
-
