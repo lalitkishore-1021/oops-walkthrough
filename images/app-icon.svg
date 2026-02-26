@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffaa00"/>
+      <stop offset="100%" stop-color="#ffdd00"/>
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="0" stdDeviation="15" flood-color="#ffaa00" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+  
+  <rect width="512" height="512" rx="110" ry="110" fill="url(#bg)" />
+  <rect width="500" height="500" x="6" y="6" rx="105" ry="105" fill="none" stroke="#333333" stroke-width="4"/>
+
+  <g transform="translate(56, 56) scale(4)" filter="url(#shadow)">
+    <path d="M 30 20 L 10 50 L 30 80" fill="none" stroke="url(#glow)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <path d="M 70 20 L 90 50 L 70 80" fill="none" stroke="url(#glow)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <path d="M 35 65 L 45 65 L 45 50 L 55 50 L 55 35 L 65 35" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
