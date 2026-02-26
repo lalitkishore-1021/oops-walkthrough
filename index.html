@@ -241,7 +241,7 @@
             </svg>
 
             <h1>SRM Student Hub</h1>
-            <p class="subtitle">All your student tools, in one place</p>
+            <p class="subtitle">Your all-in-one portal for Step Class, CGPA, and more.</p>
         </header>
 
         <div id="projects-view" class="app-view active">
@@ -276,7 +276,7 @@
                     <div class="caption">CGPA Calculator</div>
                 </div>
 
-                <div class="image-card project-card" onclick="switchView('mess-view'); renderMessMenu('Monday');">
+                <div class="image-card project-card" onclick="openTodayMessMenu()">
                     <div class="project-cover">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="project-icon">
                             <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path>
@@ -663,6 +663,16 @@
             }
         };
 
+        // --- NEW AUTO-SELECT TODAY FUNCTION ---
+        function openTodayMessMenu() {
+            const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const todayIndex = new Date().getDay();
+            const currentDay = daysOfWeek[todayIndex];
+            
+            switchView('mess-view');
+            renderMessMenu(currentDay);
+        }
+
         function renderMessMenu(selectedDay) {
             const days = Object.keys(messMenuData);
             const tabContainer = document.getElementById('mess-tabs');
@@ -677,6 +687,13 @@
                 btn.innerText = day;
                 btn.onclick = () => renderMessMenu(day);
                 tabContainer.appendChild(btn);
+
+                // --- NEW: Auto-scroll the tab bar to today's button ---
+                if (day === selectedDay) {
+                    setTimeout(() => {
+                        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }, 50); // Small delay to let the UI render first
+                }
             });
 
             const meals = messMenuData[selectedDay];
@@ -697,7 +714,6 @@
                 `;
             });
         }
-
         // ==========================================
         // 5. HELPER (RESOURCES) LOGIC
         // ==========================================
@@ -857,5 +873,4 @@
         }
     </script>
 </body>
-</html>
-
+</html> 
